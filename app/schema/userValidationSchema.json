@@ -1,0 +1,46 @@
+{
+    "getSchema":{
+       "type": "object",
+       "required": [
+         "id"     
+       ],
+       "properties": {
+         "id" : {
+           "type": "string"
+         }
+       }
+    },
+    "postSchema":{
+        "type": "object",
+        "required": [
+          "name"     
+        ],
+        "properties": {
+          "name" : {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 100
+          },
+          "point" : {
+            "type" : "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "phone":{
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 15
+          },
+          "email": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 100
+          },
+          "address": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 100
+          }
+        }
+     }
+}
