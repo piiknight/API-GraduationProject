@@ -39,8 +39,14 @@ function getUserById(id) {
 
 function addUser(user) {
      return new Promise((resolve,reject) => {
-         db.query("INSERT INTO user(name,point,phone,email,address)VALUES('"+user.name+"','"+user.point+"','"+user.phone+"','"+user.email+"','" + user.address + "')",(error,rows,fields)=>{
-            if(error) {
+         db.query("INSERT INTO user(name, point, phone, email, address)VALUES("
+             + "'" + user.name+"'"
+             + ",'" + user.point+"'"
+             + ",'" + user.phone+"'"
+             + ",'" + user.email+"'"
+             + ",'" + user.address+"'"
+             + ")",(error,rows,fields)=>{
+             if(error) {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
@@ -54,7 +60,7 @@ function addUser(user) {
 
 function updateUser(id,user) {
     return new Promise((resolve,reject) => {
-        db.query("UPDATE user set name='"+user.name+"',age='"+user.age+"',state='"+user.state+"',country='"+user.country+"' WHERE idU='"+id+"'",(error,rows,fields)=>{
+        db.query("UPDATE user set name='"+user.name+"',point='"+user.point+"',phone='"+user.phone+"',email='"+user.email+"' WHERE idU='"+id+"'",(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

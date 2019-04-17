@@ -64,6 +64,7 @@ var ApiConfig = {
   app: app
 }
 
+// Init Route under secureApi
 UserRoute.init(secureApi);
 
 module.exports = ApiConfig;

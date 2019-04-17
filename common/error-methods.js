@@ -32,10 +32,10 @@ module.exports = {
 
     // codes - array of codes
    
-    var errorKeyword = error.dataPath.split(".");
-    errorKeyword.map((values) => {
-      errorConcat += values + "_"
-    });
+    // var errorKeyword = error.dataPath.split(".");
+    // errorKeyword.map((values) => {
+    //   errorConcat += values + "_"
+    // });
 
     switch (error.keyword) {
       case "required":

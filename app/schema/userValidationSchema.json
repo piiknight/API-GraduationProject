@@ -13,7 +13,7 @@
     "postSchema":{
         "type": "object",
         "required": [
-          "name"     
+          "name"
         ],
         "properties": {
           "name" : {
@@ -23,7 +23,7 @@
           },
           "point" : {
             "type" : "integer",
-            "minimum": 1,
+            "minimum": 0,
             "maximum": 1000
           },
           "phone":{
