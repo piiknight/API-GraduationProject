@@ -14,6 +14,8 @@ var CongViecRoute = require('../app/routes/congviec.route');
 var TiecNLRoute = require('../app/routes/tiec-nl.route');
 var MenuRoute = require('../app/routes/menu.route');
 var MenuMonRoute = require('../app/routes/menu-mon.route');
+var NguyenlieuRoute = require('../app/routes/nguyenlieu.route');
+var MonNLieuRoute = require('../app/routes/mon-nlieu.route');
 
 var AuthenticRoute = require('../app/routes/authentic.route');
 var errorCode = require('../common/error-code')
@@ -78,5 +80,7 @@ CongViecRoute.init(secureApi);
 TiecNLRoute.init(secureApi);
 MenuRoute.init(secureApi);
 MenuMonRoute.init(secureApi);
+NguyenlieuRoute.init(secureApi);
+MonNLieuRoute.init(secureApi);
 
 module.exports = ApiConfig;
