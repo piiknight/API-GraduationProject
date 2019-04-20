@@ -8,6 +8,13 @@ var dbfunc = require('./db-function');
 var http  = require('http')
 var bodyParser = require('body-parser');
 var UserRoute = require('../app/routes/user.route');
+
+var LoaiTiecRoute = require('../app/routes/loai-tiec.route');
+var CongViecRoute = require('../app/routes/congviec.route');
+var TiecNLRoute = require('../app/routes/tiec-nl.route');
+var MenuRoute = require('../app/routes/menu.route');
+var MenuMonRoute = require('../app/routes/menu-mon.route');
+
 var AuthenticRoute = require('../app/routes/authentic.route');
 var errorCode = require('../common/error-code')
 var errorMessage = require('../common/error-methods')
@@ -66,5 +73,10 @@ var ApiConfig = {
 
 // Init Route under secureApi
 UserRoute.init(secureApi);
+LoaiTiecRoute.init(secureApi);
+CongViecRoute.init(secureApi);
+TiecNLRoute.init(secureApi);
+MenuRoute.init(secureApi);
+MenuMonRoute.init(secureApi);
 
 module.exports = ApiConfig;

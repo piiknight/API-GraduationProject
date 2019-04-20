@@ -1,0 +1,30 @@
+{
+    "getSchema":{
+       "type": "object",
+       "required": [
+         "id"     
+       ],
+       "properties": {
+         "id" : {
+           "type": "string"
+         }
+       }
+    },
+    "postSchema":{
+        "type": "object",
+        "required": [
+          "idTiec"
+        ],
+        "properties": {
+          "idTiec": {
+            "type": "integer"
+          },
+          "idNL": {
+            "type": "integer"
+          },
+          "idCV": {
+            "type": "integer"
+          }
+        }
+     }
+}

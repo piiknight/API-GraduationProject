@@ -1,0 +1,27 @@
+{
+    "getSchema":{
+       "type": "object",
+       "required": [
+         "id"     
+       ],
+       "properties": {
+         "id" : {
+           "type": "string"
+         }
+       }
+    },
+    "postSchema":{
+        "type": "object",
+        "required": [
+          "idMon"
+        ],
+        "properties": {
+          "idMon": {
+            "type": "integer"
+          },
+          "idMenu": {
+            "type": "integer"
+          }
+        }
+     }
+}

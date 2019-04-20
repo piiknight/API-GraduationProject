@@ -1,17 +1,27 @@
-var userModel = require("../models/user-model.js");
+var model = require("../models/menu-mon.model.js");
 
-
-var userService = {
-    getAllUser: getAllUser,
-    getUserById: getUserById,
-    addUser: addUser,
-    updateUser: updateUser,
-    deleteUser: deleteUser
+var menuMonService = {
+    getAll: getAll,
+    addOne: addOne,
+    updateOne: updateOne,
+    deleteOne: deleteOne,
+    getById: getById
 }
 
-function addUser(userData) {
+function getAll(objData) {
     return new Promise((resolve, reject) => {
-        userModel.addUser(userData).then((data) => {
+        model.getAll(objData).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+
+}
+
+function addOne(objData) {
+    return new Promise((resolve, reject) => {
+        model.addOne(objData).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);
@@ -21,9 +31,9 @@ function addUser(userData) {
 }
 
 
-function updateUser(id, userData, callback) {
+function updateOne(id, objData, callback) {
     return new Promise((resolve, reject) => {
-        userModel.updateUser(id, userData).then((data) => {
+        model.updateOne(id, objData).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);
@@ -32,9 +42,9 @@ function updateUser(id, userData, callback) {
 
 }
 
-function deleteUser(id) {
+function deleteOne(id) {
     return new Promise((resolve, reject) => {
-        userModel.deleteUser(id).then((data) => {
+        model.deleteOne(id).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);
@@ -42,9 +52,9 @@ function deleteUser(id) {
     })
 }
 
-function getAllUser() {
+function getById(id) {
     return new Promise((resolve, reject) => {
-        userModel.getAllUser().then((data) => {
+        model.getById(id).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);
@@ -52,16 +62,6 @@ function getAllUser() {
     });
 }
 
-function getUserById(id) {
-    return new Promise((resolve, reject) => {
-        userModel.getUserById(id).then((data) => {
-            resolve(data);
-        }).catch((err) => {
-            reject(err);
-        })
-    });
-}
-
-
-module.exports = userService;
+module.exports = menuMonService
+;
 
