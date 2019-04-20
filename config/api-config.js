@@ -16,6 +16,8 @@ var MenuRoute = require('../app/routes/menu.route');
 var MenuMonRoute = require('../app/routes/menu-mon.route');
 var NguyenlieuRoute = require('../app/routes/nguyenlieu.route');
 var MonNLieuRoute = require('../app/routes/mon-nlieu.route');
+var VatDungRoute = require('../app/routes/vatdung.route');
+var MonVDRoute = require('../app/routes/mon-vd.route');
 
 var AuthenticRoute = require('../app/routes/authentic.route');
 var errorCode = require('../common/error-code')
@@ -82,5 +84,7 @@ MenuRoute.init(secureApi);
 MenuMonRoute.init(secureApi);
 NguyenlieuRoute.init(secureApi);
 MonNLieuRoute.init(secureApi);
+VatDungRoute.init(secureApi);
+MonVDRoute.init(secureApi);
 
 module.exports = ApiConfig;
