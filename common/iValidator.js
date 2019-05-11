@@ -8,7 +8,6 @@ var schemaValidator = Ajv({
 
 module.exports = {
   json_schema: function (schema, data, model) {
-
     var testSchemaValidator = schemaValidator.compile(schema);
     var valid = testSchemaValidator(data);
     if (valid)

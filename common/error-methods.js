@@ -37,6 +37,7 @@ module.exports = {
     //   errorConcat += values + "_"
     // });
 
+    let message = {};
     switch (error.keyword) {
       case "required":
         errorCode = (errorConcat + error.keyword).toUpperCase();
@@ -57,8 +58,8 @@ module.exports = {
         errorCode = error.keyword.toUpperCase();
     }
     codes.push(errorCode);
-    let message = {};
-    message[errorCode] = error.message
+    message[errorCode] = error.message;
+    message["name"] = error.dataPath;
     messages.push(message);
   })
 
