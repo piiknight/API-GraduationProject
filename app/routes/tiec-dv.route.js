@@ -1,12 +1,12 @@
-const tiecNLService = require('../services/tiec-nl.service');
-var schema = require('../schema/tiecNLValidationSchema.json')
+const tiecDVService = require('../services/tiec-dv.service');
+var schema = require('../schema/tiecDVValidationSchema.json')
 var iValidator = require('../../common/iValidator');
 var errorCode = require('../../common/error-code');
 var errorMessage = require('../../common/error-methods');
 
-var url = "tiec-nl";
+var url = "tiec-dv";
 var urlRela = "tiec-id";
-var nameModel = "tiec_nl";
+var nameModel = "tiec_dv";
 
 function init(router) {
     router.route('/' + url)
@@ -21,7 +21,7 @@ function init(router) {
 }
 
 function getAll(req, res) {
-    tiecNLService.getAll().then((data) => {
+    tiecDVService.getAll().then((data) => {
         res.send(data);
     }).catch((err) => {
         res.send(err);
@@ -37,7 +37,7 @@ function addOne(req, res) {
         return res.status(422).send(json_format.errorMessage);
     }
 
-    tiecNLService.addOne(objData).then((data) => {
+    tiecDVService.addOne(objData).then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);
@@ -55,7 +55,7 @@ function updateOne(req, res) {
         return res.status(422).send(json_format.errorMessage);
     }
 
-    tiecNLService.updateOne(id, objData).then((data) => {
+    tiecDVService.updateOne(id, objData).then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);
@@ -65,7 +65,7 @@ function updateOne(req, res) {
 
 function deleteOne(req, res) {
     var delId = req.params.id;
-    tiecNLService.deleteOne(delId).then((data) => {
+    tiecDVService.deleteOne(delId).then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);
@@ -81,7 +81,7 @@ function getById(req, res) {
         return res.status(422).send(json_format.errorMessage);
     }
 
-    tiecNLService.getById(objId).then((data) => {
+    tiecDVService.getById(objId).then((data) => {
         res.send(data);
     }).catch((err) => {
         res.send(err);
@@ -97,7 +97,7 @@ function getAllByIdTiec(req, res) {
         return res.status(422).send(json_format.errorMessage);
     }
 
-    tiecNLService.getAllByIdTiec(objId).then((data) => {
+    tiecDVService.getAllByIdTiec(objId).then((data) => {
         res.send(data);
     }).catch((err) => {
         res.send(err);
