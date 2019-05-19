@@ -17,7 +17,17 @@ function init(router) {
         .delete(deleteOne)
         .put(updateOne);
     router.route('/' + url + '/' + urlRela + '/:id')
-        .get(getAllByIdMenu);
+        .get(getAllByIdMenu)
+        .delete(deleteAllByIdMenu);
+}
+
+function deleteAllByIdMenu(req, res) {
+    var delId = req.params.id;
+    service.deleteAllByIdMenu(delId).then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        res.json(err);
+    });
 }
 
 function getAllByIdMenu(req, res) {

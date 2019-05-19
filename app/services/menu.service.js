@@ -54,10 +54,17 @@ function deleteOne(id) {
     return new Promise((resolve, reject) => {
         model.deleteOne(id).then((data) => {
             resolve(data);
+            return new Promise((resolve, reject) => {
+                modelRela.deleteAllByIdMenu(id).then((data) => {
+                    resolve(data);
+                }).catch((err) => {
+                    reject(err);
+                })
+            })
         }).catch((err) => {
             reject(err);
         })
-    })
+    });
 }
 
 function getById(id) {

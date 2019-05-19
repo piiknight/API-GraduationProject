@@ -8,6 +8,7 @@ var menuModel = {
     deleteOne: deleteOne,
     getById: getById,
     getAllByIdMenu: getAllByIdMenu,
+    deleteAllByIdMenu: deleteAllByIdMenu,
     addByIdRela: addByIdRela
 }
 
@@ -17,6 +18,20 @@ var idRelaModel1 = "idMenu";
 
 var nameRelaModel2 = "mon";
 var idRelaModel2 = "idMon";
+
+function deleteAllByIdMenu(id) {
+    return new Promise((resolve, reject) => {
+        db.query("DELETE FROM " + nameModel + " WHERE " + idRelaModel1 + "='" + id + "'", (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
 
 function getAllByIdMenu(id) {
     return new Promise((resolve, reject) => {

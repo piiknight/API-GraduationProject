@@ -6,9 +6,19 @@ var menuMonService = {
     updateOne: updateOne,
     deleteOne: deleteOne,
     getById: getById,
-    getAllByIdMenu: getAllByIdMenu
+    getAllByIdMenu: getAllByIdMenu,
+    deleteAllByIdMenu: deleteAllByIdMenu
 }
 
+function deleteAllByIdMenu(id) {
+    return new Promise((resolve, reject) => {
+        model.deleteAllByIdMenu(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
 
 function getAllByIdMenu(id) {
     return new Promise((resolve, reject) => {
@@ -18,7 +28,6 @@ function getAllByIdMenu(id) {
             reject(err);
         })
     })
-
 }
 
 function getAll(objData) {
