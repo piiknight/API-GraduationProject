@@ -1,4 +1,5 @@
 var model = require("../models/menu.model.js");
+var modelRela = require("../models/menu-mon.model.js");
 
 var menuService = {
     getAll: getAll,
@@ -23,9 +24,16 @@ function addOne(objData) {
     return new Promise((resolve, reject) => {
         model.addOne(objData).then((data) => {
             resolve(data);
+            console.log("addOne: " + JSON.stringify(data));
+            objData.idMenu = data.insertId;
+            modelRela.addByIdRela(objData).then((data) => {
+                resolve(data);
+            }).catch((err) => {
+                reject(err);
+            })
         }).catch((err) => {
             reject(err);
-        })
+        });
     })
 
 }

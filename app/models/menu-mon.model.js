@@ -7,7 +7,8 @@ var menuModel = {
     updateOne: updateOne,
     deleteOne: deleteOne,
     getById: getById,
-    getAllByIdMenu: getAllByIdMenu
+    getAllByIdMenu: getAllByIdMenu,
+    addByIdRela: addByIdRela
 }
 
 var idModel = "idMM";
@@ -52,6 +53,34 @@ function getById(id) {
     return new Promise((resolve, reject) => {
         db.query("SELECT * FROM " + nameModel + " WHERE " + idModel + " =" + id.id, (error, rows, fields) => {
             if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
+
+function addByIdRela(obj) {
+    console.log("addByIdRela: " + JSON.stringify(obj));
+    let idRela = obj[idRelaModel1];
+    let values = "";
+    for (let i = 0; i < obj["mon"].length; i++) {
+        values += i === 0 ? "" : ",";
+        values += "("
+                + "'" + idRela + "'"
+                + ",'" + obj["mon"][i] + "'"
+                + ")";
+    }
+
+    console.log("values: " + values);
+
+    return new Promise((resolve, reject) => {
+        db.query("INSERT INTO " + nameModel + "(idMenu, idMon)VALUES"
+            + values, (error, rows, fields) => {
+            if (error) {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
