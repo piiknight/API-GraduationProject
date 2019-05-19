@@ -6,6 +6,7 @@ var errorMessage = require('../../common/error-methods');
 
 var url = "menu-mon";
 var nameModel = "menu_mon";
+var urlRela = "menu-id";
 
 function init(router) {
     router.route('/' + url)
@@ -15,6 +16,17 @@ function init(router) {
         .get(getById)
         .delete(deleteOne)
         .put(updateOne);
+    router.route('/' + url + '/' + urlRela + '/:id')
+        .get(getAllByIdMenu);
+}
+
+function getAllByIdMenu(req, res) {
+    var menuId = req.params.id;
+    service.getAllByIdMenu(menuId).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
+    });
 }
 
 function getAll(req, res) {

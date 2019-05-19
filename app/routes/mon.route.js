@@ -1,4 +1,4 @@
-const congviecService = require('../services/mon.service');
+const monService = require('../services/mon.service');
 var schema = require('../schema/monValidationSchema.json')
 var iValidator = require('../../common/iValidator');
 var errorCode = require('../../common/error-code');
@@ -18,7 +18,7 @@ function init(router) {
 }
 
 function getAll(req, res) {
-    congviecService.getAll().then((data) => {
+    monService.getAll().then((data) => {
         res.send(data);
     }).catch((err) => {
         res.send(err);
@@ -34,7 +34,7 @@ function addOne(req, res) {
         return res.status(422).send(json_format.errorMessage);
     }
 
-    congviecService.addOne(objData).then((data) => {
+    monService.addOne(objData).then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);
@@ -52,7 +52,7 @@ function updateOne(req, res) {
         return res.status(422).send(json_format.errorMessage);
     }
 
-    congviecService.updateOne(id, objData).then((data) => {
+    monService.updateOne(id, objData).then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);
@@ -62,7 +62,7 @@ function updateOne(req, res) {
 
 function deleteOne(req, res) {
     var delId = req.params.id;
-    congviecService.deleteOne(delId).then((data) => {
+    monService.deleteOne(delId).then((data) => {
         res.json(data);
     }).catch((err) => {
         res.json(err);
@@ -78,7 +78,7 @@ function getById(req, res) {
         return res.status(422).send(json_format.errorMessage);
     }
 
-    congviecService.getById(objId).then((data) => {
+    monService.getById(objId).then((data) => {
         res.send(data);
     }).catch((err) => {
         res.send(err);

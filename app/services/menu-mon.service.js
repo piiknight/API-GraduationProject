@@ -5,7 +5,20 @@ var menuMonService = {
     addOne: addOne,
     updateOne: updateOne,
     deleteOne: deleteOne,
-    getById: getById
+    getById: getById,
+    getAllByIdMenu: getAllByIdMenu
+}
+
+
+function getAllByIdMenu(id) {
+    return new Promise((resolve, reject) => {
+        model.getAllByIdMenu(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+
 }
 
 function getAll(objData) {

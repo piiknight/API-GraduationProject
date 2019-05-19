@@ -6,13 +6,33 @@ var menuModel = {
     addOne: addOne,
     updateOne: updateOne,
     deleteOne: deleteOne,
-    getById: getById
+    getById: getById,
+    getAllByIdMenu: getAllByIdMenu
 }
 
 var idModel = "idMM";
 var nameModel = "menu_mon";
-// var idRelaModel1 = "idMenu";
-// var idRelaModel2 = "idMon";
+var idRelaModel1 = "idMenu";
+
+var nameRelaModel2 = "mon";
+var idRelaModel2 = "idMon";
+
+function getAllByIdMenu(id) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM " + nameModel +
+            " INNER JOIN " + nameRelaModel2 +
+            " ON " + nameRelaModel2 + "." + idRelaModel2 + "=" + nameModel + "." + idRelaModel2 +
+            " WHERE " + idRelaModel1 + " =" + id, (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
 
 function getAll() {
     return new Promise((resolve, reject) => {
