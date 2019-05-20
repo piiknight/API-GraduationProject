@@ -11,10 +11,21 @@ function init(router) {
     router.route('/' + url)
         .get(getAll)
         .post(addOne);
+    router.route('/' + url + "/type")
+        .get(getAllType)
     router.route('/' + url + '/:id')
         .get(getById)
         .delete(deleteOne)
         .put(updateOne);
+}
+
+function getAllType(req, res) {
+    console.log("getAllType");
+    service.getAllType().then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
+    });
 }
 
 function getAll(req, res) {
@@ -70,6 +81,7 @@ function deleteOne(req, res) {
 }
 
 function getById(req, res) {
+    console.log("getById");
 
     let objId = req.params;
 
