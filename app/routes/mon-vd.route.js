@@ -6,6 +6,7 @@ var errorMessage = require('../../common/error-methods');
 
 var url = "mon-vd";
 var nameModel = "mon_vd";
+var urlRela = "mon-id";
 
 function init(router) {
     router.route('/' + url)
@@ -15,6 +16,17 @@ function init(router) {
         .get(getById)
         .delete(deleteOne)
         .put(updateOne);
+    router.route('/' + url + "/" + urlRela + '/:id')
+        .get(getAllByIdMon)
+}
+
+function getAllByIdMon(req, res) {
+    let id = req.params.id;
+    service.getAllByIdMon(id).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
+    });
 }
 
 function getAll(req, res) {

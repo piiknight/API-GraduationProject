@@ -6,7 +6,18 @@ var vatdungService = {
     updateOne: updateOne,
     deleteOne: deleteOne,
     getById: getById,
-    getAllType: getAllType
+    getAllType: getAllType,
+    getAllByIdType: getAllByIdType
+}
+
+function getAllByIdType(id) {
+    return new Promise((resolve, reject) => {
+        model.getAllByIdType(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
 }
 
 function getAllType() {
@@ -17,7 +28,6 @@ function getAllType() {
             reject(err);
         })
     })
-
 }
 
 function getAll(objData) {

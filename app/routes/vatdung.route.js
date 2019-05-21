@@ -12,15 +12,25 @@ function init(router) {
         .get(getAll)
         .post(addOne);
     router.route('/' + url + "/type")
-        .get(getAllType)
+        .get(getAllType);
+    router.route('/' + url + "/type/:id")
+        .get(getAllByIdType);
     router.route('/' + url + '/:id')
         .get(getById)
         .delete(deleteOne)
         .put(updateOne);
 }
 
+function getAllByIdType(req, res) {
+    var id = req.params.id;
+    service.getAllByIdType(id).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
+    });
+}
+
 function getAllType(req, res) {
-    console.log("getAllType");
     service.getAllType().then((data) => {
         res.send(data);
     }).catch((err) => {

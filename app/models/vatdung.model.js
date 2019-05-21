@@ -7,11 +7,26 @@ var vatdungModel = {
     updateOne: updateOne,
     deleteOne: deleteOne,
     getById: getById,
-    getAllType: getAllType
+    getAllType: getAllType,
+    getAllByIdType: getAllByIdType
 };
 
 var idModel = "idVD";
 var nameModel = "vatdung";
+
+function getAllByIdType(id) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM " + nameModel + " WHERE " + "idLVD=" + id, (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
 
 function getAllType() {
     return new Promise((resolve, reject) => {

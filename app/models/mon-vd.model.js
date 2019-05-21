@@ -6,11 +6,27 @@ var monVdModel = {
     addOne: addOne,
     updateOne: updateOne,
     deleteOne: deleteOne,
-    getById: getById
+    getById: getById,
+    getAllByIdMon: getAllByIdMon
 }
 
 var idModel = "idMVD";
 var nameModel = "mon_vd";
+var idModelRela = "idMon";
+
+function getAllByIdMon(id) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM " + nameModel + " WHERE " + idModelRela + "=" + id, (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
 
 function getAll() {
     return new Promise((resolve, reject) => {
@@ -60,6 +76,7 @@ function addOne(obj) {
 
 
 function updateOne(id, obj) {
+    console.log("updateOne: " + JSON.stringify(obj));
     return new Promise((resolve, reject) => {
         db.query("UPDATE " + nameModel + " set "
             + " idMon='" + obj.idMon + "'"

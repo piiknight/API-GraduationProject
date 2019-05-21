@@ -5,7 +5,18 @@ var monVdService = {
     addOne: addOne,
     updateOne: updateOne,
     deleteOne: deleteOne,
-    getById: getById
+    getById: getById,
+    getAllByIdMon: getAllByIdMon
+}
+
+function getAllByIdMon(id) {
+    return new Promise((resolve, reject) => {
+        model.getAllByIdMon(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
 }
 
 function getAll(objData) {
@@ -16,7 +27,6 @@ function getAll(objData) {
             reject(err);
         })
     })
-
 }
 
 function addOne(objData) {
