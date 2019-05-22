@@ -72,10 +72,11 @@ function getById(id) {
 
 function addOne(obj) {
     return new Promise((resolve, reject) => {
-        db.query("INSERT INTO " + nameModel + "(name, description, idLVD)VALUES("
+        db.query("INSERT INTO " + nameModel + "(name, description, idLVD, quantity)VALUES("
             + "'" + obj.name + "'"
             + ",'" + obj.description + "'"
             + ",'" + obj.idLVD + "'"
+            + ",'" + obj.quantity + "'"
             + ")", (error, rows, fields) => {
             if (error) {
                 dbFunc.connectionRelease;
@@ -90,12 +91,12 @@ function addOne(obj) {
 
 
 function updateOne(id, obj) {
-    console.log("updateOne: " + JSON.stringify(obj))
     return new Promise((resolve, reject) => {
         db.query("UPDATE " + nameModel + " set "
             + " name='" + obj.name + "'"
             + " ,description='" + obj.description + "'"
             + " ,idLVD='" + obj.idLVD + "'"
+            + " ,quantity='" + obj.quantity + "'"
             + " WHERE " + idModel + "='" + id + "'", (error, rows, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
