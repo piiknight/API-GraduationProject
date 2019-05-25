@@ -13,7 +13,7 @@
     "postSchema":{
         "type": "object",
         "required": [
-          "name"
+          "maxQuantity"
         ],
         "properties": {
           "maxQuantity": {
