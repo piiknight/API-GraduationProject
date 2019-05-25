@@ -20,6 +20,7 @@ var VatDungRoute = require('../app/routes/vatdung.route');
 var MonVDRoute = require('../app/routes/mon-vd.route');
 var DichvuRoute = require('../app/routes/dichvu.route');
 var TiecDVRoute = require('../app/routes/tiec-dv.route');
+var TiecRoute = require('../app/routes/tiec.route');
 
 var MonRoute = require('../app/routes/mon.route');
 
@@ -93,5 +94,6 @@ MonVDRoute.init(secureApi);
 DichvuRoute.init(secureApi);
 TiecDVRoute.init(secureApi);
 MonRoute.init(secureApi);
+TiecRoute.init(secureApi);
 
 module.exports = ApiConfig;
