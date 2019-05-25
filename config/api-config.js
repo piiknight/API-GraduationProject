@@ -21,7 +21,7 @@ var MonVDRoute = require('../app/routes/mon-vd.route');
 var DichvuRoute = require('../app/routes/dichvu.route');
 var TiecDVRoute = require('../app/routes/tiec-dv.route');
 var TiecRoute = require('../app/routes/tiec.route');
-
+var NNVdungRoute = require('../app/routes/nn-vd.route');
 var MonRoute = require('../app/routes/mon.route');
 
 var AuthenticRoute = require('../app/routes/authentic.route');
@@ -95,5 +95,6 @@ DichvuRoute.init(secureApi);
 TiecDVRoute.init(secureApi);
 MonRoute.init(secureApi);
 TiecRoute.init(secureApi);
+NNVdungRoute.init(secureApi);
 
 module.exports = ApiConfig;
