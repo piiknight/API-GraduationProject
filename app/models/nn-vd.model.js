@@ -22,9 +22,11 @@ function getCheckQuantityVDByMenu(tiec) {
     let idMenu = tiec.idMenu;
     let idNN = tiec.idNN;
     let quantity = tiec.quantity;
+    let check = Math.round(quantity / 10);
+    let quantityAddition = check + quantity;
     return new Promise((resolve, reject) => {
         db.query("SELECT * FROM (\n" +
-            "SELECT mon_vd.idVD, vatdung.name, vatdung.description, vatdung.idLVD, SUM(mon_vd.quantity) * " + quantity + " AS quantity, SUM(mon_vd.quantity) * " + quantity + " * 1.1 AS sum,nn_vd.maxQuantity, nn_vd.idNN " +
+            "SELECT mon_vd.idVD, vatdung.name, vatdung.description, vatdung.idLVD, SUM(mon_vd.quantity) * " + quantity + " AS quantity, SUM(mon_vd.quantity) * " + quantityAddition + " AS sum,nn_vd.maxQuantity, nn_vd.idNN " +
             "FROM mon_vd " +
             "LEFT JOIN nn_vd ON mon_vd.idVD = nn_vd.idVD " +
             "INNER JOIN vatdung ON vatdung.idVD = mon_vd.idVD " +
@@ -47,11 +49,13 @@ function getCheckQuantityVDByMenu(tiec) {
 }
 
 function getCheckQuantityVDByTiec(obj) {
-    console.log("Tiec_Model");
     let idNN = obj.idNN;
     let idTypeVdByTiec = 2;
+    let quantity = obj.quantity;
+    let check = Math.round(quantity / 10);
+    let quantityAddition = check + quantity;
     return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM (SELECT vatdung.idVD, vatdung.name, vatdung.description, vatdung.idLVD, vatdung.quantity * 10 AS quantity, vatdung.quantity * 11 AS sum, nn_vd.maxQuantity, nn_vd.idNN " +
+        db.query("SELECT * FROM (SELECT vatdung.idVD, vatdung.name, vatdung.description, vatdung.idLVD, vatdung.quantity * " + quantity + " AS quantity, vatdung.quantity * " + quantityAddition + " AS sum, nn_vd.maxQuantity, nn_vd.idNN " +
             "FROM vatdung " +
             "LEFT JOIN nn_vd ON vatdung.idVD = nn_vd.idVD " +
             "WHERE vatdung.idLVD = " + idTypeVdByTiec + ") AS mBang " +

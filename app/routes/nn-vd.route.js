@@ -24,7 +24,6 @@ function init(router) {
 }
 
 function getCheckQuantityVDByTiec(req, res) {
-    console.log("Tiec_Route");
     let obj = req.body;
     nnVdService.getCheckQuantityVDByTiec(obj).then((data) => {
         res.send(data);

@@ -22,7 +22,6 @@ function getCheckQuantityVDByMenu(obj) {
 }
 
 function getCheckQuantityVDByTiec(obj) {
-    console.log("Tiec_Service");
     return new Promise((resolve, reject) => {
         nnVdModel.getCheckQuantityVDByTiec(obj).then((data) => {
             resolve(data);
