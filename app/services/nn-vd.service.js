@@ -6,7 +6,18 @@ var nnVdService = {
     updateOne: updateOne,
     deleteOne: deleteOne,
     getById: getById,
-    getAllByIdNN: getAllByIdNN
+    getAllByIdNN: getAllByIdNN,
+    getCheckQuantityVDByTiec: getCheckQuantityVDByTiec
+}
+
+function getCheckQuantityVDByTiec(id) {
+    return new Promise((resolve, reject) => {
+        nnVdModel.getCheckQuantityVDByTiec(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
 }
 
 function getAllByIdNN(id) {

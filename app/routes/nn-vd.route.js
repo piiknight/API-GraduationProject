@@ -16,7 +16,18 @@ function init(router) {
         .delete(deleteOne)
         .put(updateOne);
     router.route('/' + url + '/nn' + '/:id')
-        .get(getAllByIdNN)
+        .get(getAllByIdNN);
+    router.route('/' + url + '/check' + '/:id')
+        .get(getCheckQuantityVDByTiec);
+}
+
+function getCheckQuantityVDByTiec(req, res) {
+    let id = req.params.id;
+    nnVdService.getCheckQuantityVDByTiec(id).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
+    });
 }
 
 function getAllByIdNN(req, res) {

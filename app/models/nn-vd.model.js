@@ -8,6 +8,7 @@ var nnVdModel = {
     deleteOne: deleteOne,
     getById: getById,
     getAllByIdNN: getAllByIdNN,
+    getCheckQuantityVDByTiec: getCheckQuantityVDByTiec
 }
 
 var idModel = "idNNVD";
@@ -15,6 +16,25 @@ var nameModel = "nn_vd";
 var idRelaModel2 = "idNN";
 var nameRelaModel1 = "vatdung";
 var idRelaModel1 = "idVD";
+
+function getCheckQuantityVDByTiec(id) {
+    let idTypeVdByTiec = 2;
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM (SELECT vatdung.idVD, vatdung.name, vatdung.description, vatdung.idLVD, vatdung.quantity * 10 AS quantity, vatdung.quantity * 11 AS sum, nn_vd.maxQuantity - nn_vd.curQuantity AS validQuantity, nn_vd.maxQuantity - nn_vd.curQuantity - vatdung.quantity * 11 AS enough, nn_vd.idNN " +
+            "FROM vatdung " +
+            "LEFT JOIN nn_vd ON vatdung.idVD = nn_vd.idVD " +
+            "WHERE vatdung.idLVD = " + idTypeVdByTiec + ") AS mBang " +
+            "WHERE mBang.idNN = " + id + " OR mBang.idNN IS NULL", (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
 
 function getAllByIdNN(id) {
     return new Promise((resolve, reject) => {
