@@ -17,13 +17,25 @@ function init(router) {
         .put(updateOne);
     router.route('/' + url + '/nn' + '/:id')
         .get(getAllByIdNN);
-    router.route('/' + url + '/check' + '/:id')
-        .get(getCheckQuantityVDByTiec);
+    router.route('/' + url + '/check1')
+        .post(getCheckQuantityVDByTiec);
+    router.route('/' + url + '/check2')
+        .post(getCheckQuantityVDByMenu);
 }
 
 function getCheckQuantityVDByTiec(req, res) {
-    let id = req.params.id;
-    nnVdService.getCheckQuantityVDByTiec(id).then((data) => {
+    console.log("Tiec_Route");
+    let obj = req.body;
+    nnVdService.getCheckQuantityVDByTiec(obj).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
+    });
+}
+
+function getCheckQuantityVDByMenu(req, res) {
+    let obj = req.body;
+    nnVdService.getCheckQuantityVDByMenu(obj).then((data) => {
         res.send(data);
     }).catch((err) => {
         res.send(err);

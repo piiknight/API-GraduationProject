@@ -7,12 +7,24 @@ var nnVdService = {
     deleteOne: deleteOne,
     getById: getById,
     getAllByIdNN: getAllByIdNN,
-    getCheckQuantityVDByTiec: getCheckQuantityVDByTiec
+    getCheckQuantityVDByTiec: getCheckQuantityVDByTiec,
+    getCheckQuantityVDByMenu: getCheckQuantityVDByMenu,
 }
 
-function getCheckQuantityVDByTiec(id) {
+function getCheckQuantityVDByMenu(obj) {
     return new Promise((resolve, reject) => {
-        nnVdModel.getCheckQuantityVDByTiec(id).then((data) => {
+        nnVdModel.getCheckQuantityVDByMenu(obj).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+}
+
+function getCheckQuantityVDByTiec(obj) {
+    console.log("Tiec_Service");
+    return new Promise((resolve, reject) => {
+        nnVdModel.getCheckQuantityVDByTiec(obj).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);
