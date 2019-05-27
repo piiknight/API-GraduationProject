@@ -9,21 +9,25 @@ var authenticModel = {
 
 function authentic(authenticData) {
     return new Promise((resolve, reject) => {
-        db.query(`SELECT * FROM user WHERE username ='${authenticData.username}'`, (error, rows, fields) => {
+        db.query("SELECT * FROM user WHERE username =" + "'" + authenticData.username + "'", (error, rows, fields) => {
             if (error) {
                 reject(error);
             } else {
-                bcrypt.compare(authenticData.password, rows[0].password, function (err, isMatch) {
-                    if (err) {
-                        reject(error);
-                    } else if (isMatch) {
-                        resolve(rows);
-                    }
-                    else {
-                        reject({"success":false,"message":"password doesnot match"});
-                    }
-                });
-
+                if (rows.length == 0) {
+                    reject(false);
+                } else {
+                    console.log("authenticData: " + JSON.stringify(authenticData));
+                    bcrypt.compare(authenticData.password, rows[0].password, function (err, isMatch) {
+                        if (err) {
+                            reject(error);
+                        } else if (isMatch) {
+                            resolve(rows);
+                        }
+                        else {
+                            reject({"success":false,"message":"password doesnot match"});
+                        }
+                    });
+                }
             }
         });
     });
