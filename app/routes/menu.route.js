@@ -15,6 +15,17 @@ function init(router) {
         .get(getById)
         .delete(deleteOne)
         .put(updateOne);
+    router.route('/' + url + '/price' + '/:id')
+        .get(getTotalPrice);
+}
+
+function getTotalPrice(req, res) {
+    var id = req.params.id;
+    service.getTotalPrice(id).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
+    });
 }
 
 function getAll(req, res) {

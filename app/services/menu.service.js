@@ -6,7 +6,18 @@ var menuService = {
     addOne: addOne,
     updateOne: updateOne,
     deleteOne: deleteOne,
-    getById: getById
+    getById: getById,
+    getTotalPrice: getTotalPrice
+}
+
+function getTotalPrice(id) {
+    return new Promise((resolve, reject) => {
+        model.getTotalPrice(id).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
 }
 
 function getAll(objData) {
@@ -17,7 +28,6 @@ function getAll(objData) {
             reject(err);
         })
     })
-
 }
 
 function addOne(objData) {

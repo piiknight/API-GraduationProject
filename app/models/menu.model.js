@@ -6,11 +6,29 @@ var menuModel = {
     addOne: addOne,
     updateOne: updateOne,
     deleteOne: deleteOne,
-    getById: getById
+    getById: getById,
+    getTotalPrice: getTotalPrice
 }
 
 var idModel = "idMenu";
 var nameModel = "menu";
+
+function getTotalPrice(id) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT SUM(mon.price) AS totalPrice FROM menu " +
+            "INNER JOIN menu_mon ON menu_mon.idMenu = menu.idMenu " +
+            "INNER JOIN mon ON mon.idMon = menu_mon.idMon " +
+            "WHERE menu.idMenu = " + id, (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
 
 function getAll() {
     return new Promise((resolve, reject) => {
