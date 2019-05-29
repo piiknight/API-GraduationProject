@@ -9,7 +9,9 @@ var authenticModel = {
 
 function authentic(authenticData) {
     return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM user WHERE username =" + "'" + authenticData.username + "'", (error, rows, fields) => {
+        db.query("SELECT * FROM user" +
+            " INNER JOIN permission ON user.idMode = permission.idMode " +
+            " WHERE username =" + "'" + authenticData.username + "'", (error, rows, fields) => {
             if (error) {
                 reject(error);
             } else {
@@ -36,6 +38,8 @@ function authentic(authenticData) {
 
 
 function signup(user) {
+    let idMode = user.idMode || 4;
+    let name = user.name || user.username;
     return new Promise((resolve, reject) => {
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
@@ -54,13 +58,28 @@ function signup(user) {
                         dbFunc.connectionRelease;
                         reject({"success":false,"message":"user already exist ! try with different user"});
                     } else {
-                        db.query("INSERT INTO user(username,password)VALUES('" + user.username + "','" + user.password + "')", (error, rows, fields) => {
+                        db.query("INSERT INTO user(username, password, name, idMode)VALUES('" +
+                            user.username + "','" +
+                            user.password + "','" +
+                            name + "','" +
+                            idMode + "')", (error, rows, fields) => {
                             if (error) {
                                 dbFunc.connectionRelease;
                                 reject(error);
                             } else {
                                 dbFunc.connectionRelease;
-                                resolve(rows);
+                                db.query("SELECT * FROM user" +
+                                    " INNER JOIN permission ON user.idMode = permission.idMode " +
+                                    " WHERE username =" + "'" + user.username + "'"
+                                    , (error, rows, fields) => {
+                                    if (error) {
+                                        dbFunc.connectionRelease;
+                                        reject(error);
+                                    } else {
+                                        dbFunc.connectionRelease;
+                                        resolve(rows);
+                                    }
+                                });
                             }
                         });
                     }
