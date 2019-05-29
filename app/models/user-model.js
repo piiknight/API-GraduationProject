@@ -52,10 +52,11 @@ function addUser(user) {
                     return next(err);
                 }
                 user.password = hash;
-                db.query("INSERT INTO user(username, password, name, point, phone, email, address)VALUES("
+                db.query("INSERT INTO user(username, password, idMode, name, point, phone, email, address)VALUES("
                     + "'" + user.username + "'"
-                    + "'" + user.password + "'"
-                    + "'" + user.name + "'"
+                    + ",'" + user.password + "'"
+                    + ",'" + user.idMode + "'"
+                    + ",'" + user.name + "'"
                     + ",'" + user.point + "'"
                     + ",'" + user.phone + "'"
                     + ",'" + user.email + "'"
