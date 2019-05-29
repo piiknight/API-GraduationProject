@@ -43,9 +43,9 @@ function getUserById(req,res) {
 }
 
 function addUser(req,res) {
-  var userData=req.body;
-  
-  //Validating the input entity
+    var userData=req.body;
+
+    //Validating the input entity
    var json_format = iValidator.json_schema(schema.postSchema, userData, "user");
    if (json_format.valid == false) {
      return res.status(422).send(json_format.errorMessage);

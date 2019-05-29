@@ -1,88 +1,113 @@
 var db = require('../../config/database');
 var dbFunc = require('../../config/db-function');
+const bcrypt = require('bcrypt');
 
 var userModel = {
-   getAllUser:getAllUser,
-   addUser:addUser,
-   updateUser:updateUser,
-   deleteUser:deleteUser,
-   getUserById:getUserById
+    getAllUser: getAllUser,
+    addUser: addUser,
+    updateUser: updateUser,
+    deleteUser: deleteUser,
+    getUserById: getUserById
 }
 
 function getAllUser() {
-    return new Promise((resolve,reject) => {
-        db.query("SELECT * FROM user",(error,rows,fields)=>{
-            if(!!error) {
-                dbFunc.connectionRelease;
-                reject(error);
-            } else {
-                dbFunc.connectionRelease;
-                resolve(rows);
-            }
-       });
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM user" +
+            " INNER JOIN permission ON user.idMode = permission.idMode "
+            , (error, rows, fields) => {
+                if (!!error) {
+                    dbFunc.connectionRelease;
+                    reject(error);
+                } else {
+                    dbFunc.connectionRelease;
+                    resolve(rows);
+                }
+            });
     });
 }
 
 function getUserById(id) {
-    return new Promise((resolve,reject) => {
-        db.query("SELECT * FROM user WHERE idU ="+id.id,(error,rows,fields)=>{
-            if(!!error) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM user WHERE idU =" + id.id, (error, rows, fields) => {
+            if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
                 dbFunc.connectionRelease;
                 resolve(rows);
             }
-       });
-    });  
+        });
+    });
 }
 
 function addUser(user) {
-     return new Promise((resolve,reject) => {
-         db.query("INSERT INTO user(name, point, phone, email, address)VALUES("
-             + "'" + user.name+"'"
-             + ",'" + user.point+"'"
-             + ",'" + user.phone+"'"
-             + ",'" + user.email+"'"
-             + ",'" + user.address+"'"
-             + ")",(error,rows,fields)=>{
-             if(error) {
-                dbFunc.connectionRelease;
-                reject(error);
-            } else {
-                dbFunc.connectionRelease;
-                resolve(rows);
+    console.log("addUser model: " + JSON.stringify(user));
+    return new Promise((resolve, reject) => {
+        bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+                return next(err);
             }
-          });
+            bcrypt.hash(user.password, salt, function (err, hash) {
+                if (err) {
+                    return next(err);
+                }
+                user.password = hash;
+                db.query("INSERT INTO user(username, password, name, point, phone, email, address)VALUES("
+                    + "'" + user.username + "'"
+                    + "'" + user.password + "'"
+                    + "'" + user.name + "'"
+                    + ",'" + user.point + "'"
+                    + ",'" + user.phone + "'"
+                    + ",'" + user.email + "'"
+                    + ",'" + user.address + "'"
+                    + ")", (error, rows, fields) => {
+                    if (error) {
+                        dbFunc.connectionRelease;
+                        reject(error);
+                    } else {
+                        dbFunc.connectionRelease;
+                        resolve(rows);
+                    }
+                });
+            })
+
         });
+    });
+
 }
 
-
-function updateUser(id,user) {
-    return new Promise((resolve,reject) => {
-        db.query("UPDATE user set name='"+user.name+"',point='"+user.point+"',phone='"+user.phone+"',email='"+user.email+"' WHERE idU='"+id+"'",(error,rows,fields)=>{
-            if(!!error) {
+function updateUser(id, user) {
+    return new Promise((resolve, reject) => {
+        db.query("UPDATE user set " +
+            "name='" + user.name
+            + "',point='" + user.point
+            + "',phone='" + user.phone
+            + "',email='" + user.email
+            + "',address='" + user.address
+            + "' " +
+            " WHERE idU='" + id + "'", (error, rows, fields) => {
+            if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
                 dbFunc.connectionRelease;
                 resolve(rows);
             }
-       });    
+        });
     })
 }
 
 function deleteUser(id) {
-   return new Promise((resolve,reject) => {
-        db.query("DELETE FROM user WHERE idU='"+id+"'",(error,rows,fields)=>{
-            if(!!error) {
+    return new Promise((resolve, reject) => {
+        db.query("DELETE FROM user WHERE idU='" + id + "'", (error, rows, fields) => {
+            if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
                 dbFunc.connectionRelease;
                 resolve(rows);
             }
-       });    
+        });
     });
 }
 
