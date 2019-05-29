@@ -4,7 +4,22 @@ const bcrypt = require('bcrypt');
 
 var authenticModel = {
     authentic: authentic,
-    signup: signup
+    signup: signup,
+    getPermission: getPermission
+}
+
+function getPermission() {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM permission", (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
 }
 
 function authentic(authenticData) {

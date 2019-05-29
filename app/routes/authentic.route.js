@@ -12,7 +12,17 @@ function init(router) {
     router.route('/login')
         .post(authentic); 
     router.route('/signup')
-          .post(signup); 
+          .post(signup);
+    router.route('/permission')
+        .get(getPermission);
+}
+
+function getPermission(req, res) {
+    authenticService.getPermission().then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
+    });
 }
 
 function authentic(req,res) {
