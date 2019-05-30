@@ -17,7 +17,20 @@ function init(router) {
         .delete(deleteOne)
         .put(updateOne);
     router.route('/' + url + '/' + urlRela1 + '/:id')
-        .get(getAllByIdNN)
+        .get(getAllByIdNN);
+    router.route('/' + url + '/' + 'status' + '/:id')
+        .put(updateStatus);
+}
+
+function updateStatus(req, res) {
+    var tiec = req.body;
+    var id = req.params.id;
+
+    tiecService.updateStatus(id, tiec.status).then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        res.json(err);
+    });
 }
 
 function getAllByIdNN(req, res) {
