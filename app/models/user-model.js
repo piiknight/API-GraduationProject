@@ -7,7 +7,8 @@ var userModel = {
     addUser: addUser,
     updateUser: updateUser,
     deleteUser: deleteUser,
-    getUserById: getUserById
+    getUserById: getUserById,
+    updateProfile: updateProfile
 }
 
 function getAllUser() {
@@ -75,6 +76,45 @@ function addUser(user) {
         });
     });
 
+}
+
+function updateProfile(id, user) {
+    console.log("updateProfile MODEL: " + JSON.stringify(user));
+    console.log("updateProfile sql: " + "UPDATE user set " +
+        "name='" + user.name
+        + "',point='" + user.point
+        + "',phone='" + user.phone
+        + "',email='" + user.email
+        + "',address='" + user.address
+        + "' " +
+        " WHERE idU='" + id + "'");
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(user.password, user.lastPassword, function (err, isMatch) {
+            if (err) {
+                reject("FAIL");
+            } else if (isMatch) {
+                db.query("UPDATE user set " +
+                    "name='" + user.name
+                    + "',point='" + user.point
+                    + "',phone='" + user.phone
+                    + "',email='" + user.email
+                    + "',address='" + user.address
+                    + "' " +
+                    " WHERE idU='" + id + "'", (error, rows, fields) => {
+                    if (!!error) {
+                        dbFunc.connectionRelease;
+                        reject(error);
+                    } else {
+                        dbFunc.connectionRelease;
+                        resolve(rows);
+                    }
+                });
+            }
+            else {
+                reject({"success":false,"message":"password doesnot match"});
+            }
+        });
+    })
 }
 
 function updateUser(id, user) {

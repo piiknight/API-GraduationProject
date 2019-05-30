@@ -13,7 +13,9 @@ function init(router) {
     router.route('/user/:id')
         .get(getUserById)
         .delete(deleteUser)
-        .put(updateUser); 
+        .put(updateUser);
+    router.route('/user/profile/:id')
+        .put(updateProfile);
 }
 
 function getAllUsers(req,res) {
@@ -60,6 +62,16 @@ function addUser(req,res) {
 
 }
 
+function updateProfile(req,res) {
+    var userData=req.body;
+    var id = req.params.id;
+    userService.updateProfile(id,userData).then((data)=>{
+        res.json(data);
+    }).catch((err)=>{
+        mail.mail(err);
+        res.json(err);
+    });
+}
 
 function updateUser(req,res) {
    var userData=req.body;

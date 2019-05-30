@@ -6,7 +6,8 @@ var userService = {
     getUserById: getUserById,
     addUser: addUser,
     updateUser: updateUser,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
+    updateProfile: updateProfile
 }
 
 function addUser(userData) {
@@ -24,6 +25,18 @@ function addUser(userData) {
 function updateUser(id, userData, callback) {
     return new Promise((resolve, reject) => {
         userModel.updateUser(id, userData).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    })
+
+}
+
+function updateProfile(id, userData, callback) {
+    console.log("updateProfile SERVICE: " + JSON.stringify(userData));
+    return new Promise((resolve, reject) => {
+        userModel.updateProfile(id, userData).then((data) => {
             resolve(data);
         }).catch((err) => {
             reject(err);
