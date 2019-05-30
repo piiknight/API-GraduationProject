@@ -20,6 +20,18 @@ function init(router) {
         .get(getAllByIdNN);
     router.route('/' + url + '/' + 'status' + '/:id')
         .put(updateStatus);
+    router.route('/' + url + '/' + 'ignore' + '/:id')
+        .put(ignoreResponsibility);
+}
+
+function ignoreResponsibility(req, res) {
+    var id = req.params.id;
+
+    tiecService.ignoreResponsibility(id).then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        res.json(err);
+    });
 }
 
 function updateStatus(req, res) {

@@ -8,7 +8,8 @@ var tiecModel = {
     deleteOne: deleteOne,
     getById: getById,
     getAllByIdNN: getAllByIdNN,
-    updateStatus: updateStatus
+    updateStatus: updateStatus,
+    ignoreResponsibility: ignoreResponsibility
 }
 
 var idModel = "idTiec";
@@ -16,6 +17,20 @@ var nameModel = "tiec";
 var nameRelaModel1 = "loai_tiec";
 var idRelaModel1 = "idLoai";
 var idRelaModel2 = "idNN";
+
+function ignoreResponsibility(idTiec) {
+    return new Promise((resolve, reject) => {
+        db.query("UPDATE tiec SET idNN = " + 0 + " WHERE idTiec = " + idTiec, (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
 
 function updateStatus(idTiec, status) {
     console.log("updateStatus: " + idTiec + " status: " + JSON.stringify(status));

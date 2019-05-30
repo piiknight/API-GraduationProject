@@ -8,7 +8,25 @@ var userModel = {
     updateUser: updateUser,
     deleteUser: deleteUser,
     getUserById: getUserById,
-    updateProfile: updateProfile
+    updateProfile: updateProfile,
+    getUserByMode: getUserByMode
+}
+
+function getUserByMode(mode) {
+    let typeMode = mode.mode;
+    return new Promise((resolve, reject) => {
+        db.query("SELECT user.idU, user.name, user.username FROM user " +
+            "INNER JOIN permission ON user.idMode = permission.idMode " +
+            "WHERE mode = '" + typeMode + "'", (error, rows, fields) => {
+                if (!!error) {
+                    dbFunc.connectionRelease;
+                    reject(error);
+                } else {
+                    dbFunc.connectionRelease;
+                    resolve(rows);
+                }
+            });
+    });
 }
 
 function getAllUser() {

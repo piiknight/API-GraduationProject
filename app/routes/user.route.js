@@ -16,83 +16,95 @@ function init(router) {
         .put(updateUser);
     router.route('/user/profile/:id')
         .put(updateProfile);
+    router.route('/userMode/:mode')
+        .get(getUserByMode);
 }
 
-function getAllUsers(req,res) {
-  userService.getAllUser().then((data) => {
-      res.send(data);
+function getUserByMode(req, res) {
+    var mode = req.params;
+    userService.getUserByMode(mode).then((data) => {
+        res.send(data);
     }).catch((err) => {
-      mail.mail(err);
-      res.send(err);
+        mail.mail(err);
+        res.send(err);
     });
 }
 
-function getUserById(req,res) {
-
-  let userId = req.params;
-
-  var json_format = iValidator.json_schema(schema.getSchema,userId,"user");
-  if (json_format.valid == false) {
-    return res.status(422).send(json_format.errorMessage);
-  }
-
-  userService.getUserById(userId).then((data) => {
-      res.send(data);
+function getAllUsers(req, res) {
+    userService.getAllUser().then((data) => {
+        res.send(data);
     }).catch((err) => {
-      mail.mail(err);
-      res.send(err);
+        mail.mail(err);
+        res.send(err);
     });
 }
 
-function addUser(req,res) {
-    var userData=req.body;
+function getUserById(req, res) {
+
+    let userId = req.params;
+
+    var json_format = iValidator.json_schema(schema.getSchema, userId, "user");
+    if (json_format.valid == false) {
+        return res.status(422).send(json_format.errorMessage);
+    }
+
+    userService.getUserById(userId).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        mail.mail(err);
+        res.send(err);
+    });
+}
+
+function addUser(req, res) {
+    var userData = req.body;
 
     //Validating the input entity
-   var json_format = iValidator.json_schema(schema.postSchema, userData, "user");
-   if (json_format.valid == false) {
-     return res.status(422).send(json_format.errorMessage);
-   }
+    var json_format = iValidator.json_schema(schema.postSchema, userData, "user");
+    if (json_format.valid == false) {
+        return res.status(422).send(json_format.errorMessage);
+    }
 
-  userService.addUser(userData).then((data) => {
-    res.json(data);
-  }).catch((err) => {
-    mail.mail(err);
-    res.json(err);
-  });
+    userService.addUser(userData).then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        mail.mail(err);
+        res.json(err);
+    });
 
 }
 
-function updateProfile(req,res) {
-    var userData=req.body;
+function updateProfile(req, res) {
+    var userData = req.body;
     var id = req.params.id;
-    userService.updateProfile(id,userData).then((data)=>{
+    userService.updateProfile(id, userData).then((data) => {
         res.json(data);
-    }).catch((err)=>{
+    }).catch((err) => {
         mail.mail(err);
         res.json(err);
     });
 }
 
-function updateUser(req,res) {
-   var userData=req.body;
-   var id = req.params.id;
-   userService.updateUser(id,userData).then((data)=>{
-      res.json(data);
-  }).catch((err)=>{
-      mail.mail(err);
-      res.json(err);
-   });
+function updateUser(req, res) {
+    var userData = req.body;
+    var id = req.params.id;
+    userService.updateUser(id, userData).then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        mail.mail(err);
+        res.json(err);
+    });
 }
 
 
-function deleteUser(req,res) {
-  var delId = req.params.id;
-  userService.deleteUser(delId).then((data)=>{
-    res.json(data);
-  }).catch((err)=>{
-     mail.mail(err);
-      res.json(err);
-  });
+function deleteUser(req, res) {
+    var delId = req.params.id;
+    userService.deleteUser(delId).then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        mail.mail(err);
+        res.json(err);
+    });
 }
 
 

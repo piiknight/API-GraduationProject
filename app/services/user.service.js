@@ -7,7 +7,18 @@ var userService = {
     addUser: addUser,
     updateUser: updateUser,
     deleteUser: deleteUser,
-    updateProfile: updateProfile
+    updateProfile: updateProfile,
+    getUserByMode: getUserByMode
+}
+
+function getUserByMode(mode) {
+    return new Promise((resolve, reject) => {
+        userModel.getUserByMode(mode).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
 }
 
 function addUser(userData) {

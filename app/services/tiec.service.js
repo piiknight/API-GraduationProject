@@ -7,7 +7,18 @@ var tiecService = {
     deleteOne: deleteOne,
     getById: getById,
     getAllByIdNN: getAllByIdNN,
-    updateStatus: updateStatus
+    updateStatus: updateStatus,
+    ignoreResponsibility: ignoreResponsibility
+}
+
+function ignoreResponsibility(idTiec) {
+    return new Promise((resolve, reject) => {
+        tiecModel.ignoreResponsibility(idTiec).then((data) => {
+            resolve(data);
+        }).catch((err) => {
+            reject(err);
+        })
+    });
 }
 
 function updateStatus(idTiec, status) {
