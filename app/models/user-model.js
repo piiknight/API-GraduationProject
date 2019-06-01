@@ -15,7 +15,7 @@ var userModel = {
 function getUserByMode(mode) {
     let typeMode = mode.mode;
     return new Promise((resolve, reject) => {
-        db.query("SELECT user.idU, user.name, user.username FROM user " +
+        db.query("SELECT user.idU, user.name, user.username, user.phone, user.point FROM user " +
             "INNER JOIN permission ON user.idMode = permission.idMode " +
             "WHERE mode = '" + typeMode + "'", (error, rows, fields) => {
                 if (!!error) {
