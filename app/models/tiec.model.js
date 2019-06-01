@@ -8,6 +8,7 @@ var tiecModel = {
     deleteOne: deleteOne,
     getById: getById,
     getAllByIdNN: getAllByIdNN,
+    getAllByIdND: getAllByIdND,
     updateStatus: updateStatus,
     ignoreResponsibility: ignoreResponsibility
 }
@@ -17,6 +18,7 @@ var nameModel = "tiec";
 var nameRelaModel1 = "loai_tiec";
 var idRelaModel1 = "idLoai";
 var idRelaModel2 = "idNN";
+var idRelaModel3 = "idND";
 
 function ignoreResponsibility(idTiec) {
     return new Promise((resolve, reject) => {
@@ -36,6 +38,25 @@ function updateStatus(idTiec, status) {
     console.log("updateStatus: " + idTiec + " status: " + JSON.stringify(status));
     return new Promise((resolve, reject) => {
         db.query("UPDATE tiec SET status = " + status + " WHERE idTiec = " + idTiec, (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
+
+function getAllByIdND(id) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT * FROM " + nameModel +
+            " INNER JOIN " + nameRelaModel1 +
+            " ON " + nameRelaModel1 + "." + idRelaModel1 + "=" + nameModel + "." + idRelaModel1 +
+            " INNER JOIN " + nameRelaModel1 +
+            " ON " + nameRelaModel1 + "." + idRelaModel1 + "=" + nameModel + "." + idRelaModel1 +
+            " WHERE " + idRelaModel3 + " =" + id, (error, rows, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

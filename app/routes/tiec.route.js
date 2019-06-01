@@ -7,6 +7,7 @@ var errorMessage = require('../../common/error-methods');
 var url = "tiec";
 var nameModel = "tiec";
 var urlRela1 = "nn";
+var urlRela2 = "nd";
 
 function init(router) {
     router.route('/' + url)
@@ -18,6 +19,8 @@ function init(router) {
         .put(updateOne);
     router.route('/' + url + '/' + urlRela1 + '/:id')
         .get(getAllByIdNN);
+    router.route('/' + url + '/' + urlRela2 + '/:id')
+        .get(getAllByIdND);
     router.route('/' + url + '/' + 'status' + '/:id')
         .put(updateStatus);
     router.route('/' + url + '/' + 'ignore' + '/:id')
@@ -42,6 +45,17 @@ function updateStatus(req, res) {
         res.json(data);
     }).catch((err) => {
         res.json(err);
+    });
+}
+
+function getAllByIdND(req, res) {
+
+    let id = req.params.id;
+
+    tiecService.getAllByIdND(id).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
     });
 }
 
