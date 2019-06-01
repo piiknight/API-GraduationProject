@@ -99,10 +99,15 @@ function getById(id) {
 
 function addOne(obj) {
     return new Promise((resolve, reject) => {
-        db.query("INSERT INTO " + nameModel + "(name, salary, workTime)VALUES("
-            + "'" + obj.name + "'"
-            + ",'" + obj.salary + "'"
-            + ",'" + obj.workTime + "'"
+        db.query("INSERT INTO " + nameModel + "(address, phone, idLoai, idMenu, idND, idNN, quantity, start)VALUES("
+            + "'" + obj.address + "'"
+            + ",'" + obj.phone + "'"
+            + ",'" + obj.idLoai + "'"
+            + ",'" + obj.idMenu + "'"
+            + ",'" + obj.idND + "'"
+            + ",'" + obj.idNN + "'"
+            + ",'" + obj.quantity + "'"
+            + ",'" + obj.start + "'"
             + ")", (error, rows, fields) => {
             if (error) {
                 dbFunc.connectionRelease;
