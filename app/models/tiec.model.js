@@ -51,11 +51,15 @@ function updateStatus(idTiec, status) {
 
 function getAllByIdND(id) {
     return new Promise((resolve, reject) => {
-        db.query("SELECT * FROM " + nameModel +
+        db.query("SELECT tiec.idTiec, tiec.address, tiec.phone, tiec.idMenu, tiec.idND, tiec.idLoai, loai_tiec.name " +
+            " , tiec.status, tiec.quantity, tiec.start, user.name AS nameNN, tiec.idNN, tiec.idMenu, menu.name AS nameMenu" +
+            " FROM " + nameModel +
             " INNER JOIN " + nameRelaModel1 +
             " ON " + nameRelaModel1 + "." + idRelaModel1 + "=" + nameModel + "." + idRelaModel1 +
-            " INNER JOIN " + nameRelaModel1 +
-            " ON " + nameRelaModel1 + "." + idRelaModel1 + "=" + nameModel + "." + idRelaModel1 +
+            " INNER JOIN " + "user" +
+            " ON " + "user" + "." + "idU" + "=" + nameModel + "." + "idNN" +
+            " INNER JOIN " + "menu" +
+            " ON " + "menu" + "." + "idMenu" + "=" + nameModel + "." + "idMenu" +
             " WHERE " + idRelaModel3 + " =" + id, (error, rows, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
