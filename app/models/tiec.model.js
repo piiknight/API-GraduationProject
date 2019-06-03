@@ -10,7 +10,8 @@ var tiecModel = {
     getAllByIdNN: getAllByIdNN,
     getAllByIdND: getAllByIdND,
     updateStatus: updateStatus,
-    ignoreResponsibility: ignoreResponsibility
+    ignoreResponsibility: ignoreResponsibility,
+    getAllByIdNL: getAllByIdNL
 }
 
 var idModel = "idTiec";
@@ -38,6 +39,26 @@ function updateStatus(idTiec, status) {
     console.log("updateStatus: " + idTiec + " status: " + JSON.stringify(status));
     return new Promise((resolve, reject) => {
         db.query("UPDATE tiec SET status = " + status + " WHERE idTiec = " + idTiec, (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+        });
+    });
+}
+
+function getAllByIdNL(id) {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT tiec.address, user.phone, tiec.status, tiec.quantity, tiec.start," +
+            "congviec.name AS nameCV, congviec.salary, congviec.workTime, user.name AS nameNN " +
+            "FROM tiec " +
+            "INNER JOIN tiec_nl ON tiec_nl.idTiec = tiec.idTiec " +
+            "INNER JOIN congviec ON congviec.idCV = tiec_nl.idCV " +
+            "INNER JOIN user ON user.idU = tiec.idNN " +
+            "WHERE idNL = " + id, (error, rows, fields) => {
             if (!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

@@ -8,6 +8,7 @@ var url = "tiec";
 var nameModel = "tiec";
 var urlRela1 = "nn";
 var urlRela2 = "nd";
+var urlRela3 = "nl";
 
 function init(router) {
     router.route('/' + url)
@@ -21,6 +22,8 @@ function init(router) {
         .get(getAllByIdNN);
     router.route('/' + url + '/' + urlRela2 + '/:id')
         .get(getAllByIdND);
+    router.route('/' + url + '/' + urlRela3 + '/:id')
+        .get(getAllByIdNL);
     router.route('/' + url + '/' + 'status' + '/:id')
         .put(updateStatus);
     router.route('/' + url + '/' + 'ignore' + '/:id')
@@ -45,6 +48,16 @@ function updateStatus(req, res) {
         res.json(data);
     }).catch((err) => {
         res.json(err);
+    });
+}
+
+function getAllByIdNL(req, res) {
+    let id = req.params.id;
+
+    tiecService.getAllByIdNL(id).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.send(err);
     });
 }
 
